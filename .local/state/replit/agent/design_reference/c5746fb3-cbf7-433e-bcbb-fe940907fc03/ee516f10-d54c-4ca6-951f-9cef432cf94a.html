@@ -1,0 +1,1082 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlatform - Online Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#7C3AED',
+                        accent: '#10B981',
+                        dark: '#1F2937',
+                        medium: '#6B7280',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .course-card:hover { transform: translateY(-4px); }
+        .progress-ring { transition: stroke-dasharray 0.35s; }
+        .video-overlay { background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1)); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- @COMPONENT: Navigation Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold text-dark">EduPlatform</span>
+                    </div>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#" class="text-primary font-medium border-b-2 border-primary pb-4" data-page="courses">Courses</a>
+                        <a href="#" class="text-medium hover:text-dark pb-4 transition-colors" data-page="progress">My Progress</a>
+                        <a href="#" class="text-medium hover:text-dark pb-4 transition-colors" data-page="instructors">Instructors</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Search courses..." class="w-64 pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-medium"></i>
+                    </div>
+                    <button class="relative p-2 text-medium hover:text-dark transition-colors">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+                    </button>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Navigation Header -->
+
+    <!-- @COMPONENT: Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Course Listing Page -->
+        <div id="courses-page" class="page-content">
+            <!-- @COMPONENT: Hero Section -->
+            <section class="mb-12">
+                <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h1 class="text-4xl font-bold mb-4">Expand Your Knowledge</h1>
+                        <p class="text-xl opacity-90 mb-6">Discover thousands of courses from expert instructors</p>
+                        <button class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+                            Explore Courses
+                        </button>
+                    </div>
+                    <div class="absolute right-0 top-0 w-64 h-64 bg-white opacity-10 rounded-full transform translate-x-32 -translate-y-32"></div>
+                </div>
+            </section>
+            <!-- @END_COMPONENT: Hero Section -->
+
+            <!-- @COMPONENT: Filters and Search -->
+            <section class="mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="flex flex-wrap gap-3">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">All Categories</button>
+                        <button class="px-4 py-2 bg-white text-medium border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">Programming</button>
+                        <button class="px-4 py-2 bg-white text-medium border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">Design</button>
+                        <button class="px-4 py-2 bg-white text-medium border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">Business</button>
+                        <button class="px-4 py-2 bg-white text-medium border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">Marketing</button>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <select class="px-4 py-2 border border-gray-200 rounded-lg bg-white text-medium">
+                            <option>Sort by: Most Popular</option>
+                            <option>Sort by: Newest</option>
+                            <option>Sort by: Price</option>
+                            <option>Sort by: Rating</option>
+                        </select>
+                        <button class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-th-large text-medium"></i>
+                        </button>
+                        <button class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-list text-medium"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <!-- @END_COMPONENT: Filters and Search -->
+
+            <!-- @COMPONENT: Course Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- @MAP: courses.map(course => ( -->
+                
+                <!-- Course Card 1 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="1">
+                    <!-- Modern workspace with laptop and coffee cup showing clean design -->
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Web Development Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-blue-100 text-primary text-sm font-medium rounded-full">Programming</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.8</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">2,341</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">Complete Web Development Bootcamp</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Learn HTML, CSS, JavaScript, React, Node.js and more in this comprehensive course.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">Dr. Angela Yu</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">52 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$89</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$199</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="2">
+                    <!-- Creative design workspace with colorful design tools and graphics -->
+                    <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="UI UX Design Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-purple-100 text-secondary text-sm font-medium rounded-full">Design</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.9</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">1,842</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">UI/UX Design Masterclass</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Master user interface and user experience design with Figma, Adobe XD, and design principles.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">Sarah Johnson</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">38 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$69</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$149</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="3">
+                    <!-- Professional business meeting with charts and analytics on screens -->
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Digital Marketing Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-green-100 text-accent text-sm font-medium rounded-full">Marketing</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.7</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">3,126</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">Digital Marketing Complete Course</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Learn SEO, Social Media Marketing, Google Ads, Facebook Ads, and Email Marketing strategies.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">Mark Williams</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">45 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$79</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$179</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="4">
+                    <!-- Data science workspace with multiple monitors showing code and data visualization -->
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Data Science Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-blue-100 text-primary text-sm font-medium rounded-full">Data Science</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.8</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">2,891</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">Data Science with Python</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Master data analysis, machine learning, and visualization with Python, Pandas, and Scikit-learn.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">Dr. Michael Chen</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">68 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$99</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$229</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 5 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="5">
+                    <!-- Modern mobile app development setup with smartphone and code editor -->
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Mobile App Development Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-blue-100 text-primary text-sm font-medium rounded-full">Programming</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.6</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">1,567</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">React Native Mobile Development</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Build cross-platform mobile apps for iOS and Android using React Native and JavaScript.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">Emily Rodriguez</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">42 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$85</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$189</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 6 -->
+                <div class="course-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer" data-mock="true" data-course-id="6">
+                    <!-- Photography studio setup with professional camera and lighting equipment -->
+                    <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Photography Course" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 bg-purple-100 text-secondary text-sm font-medium rounded-full">Photography</span>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span data-bind="course.rating">4.9</span>
+                                <span class="ml-1">(<span data-bind="course.reviews">987</span>)</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-dark mb-2" data-bind="course.title">Professional Photography Masterclass</h3>
+                        <p class="text-medium text-sm mb-4" data-bind="course.description">Learn portrait, landscape, and commercial photography with advanced editing techniques.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-user mr-2"></i>
+                                <span data-bind="course.instructor">James Miller</span>
+                            </div>
+                            <div class="flex items-center text-sm text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">31 hours</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-2xl font-bold text-dark" data-bind="course.price">$59</span>
+                                <span class="text-medium line-through ml-2" data-bind="course.originalPrice">$139</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- @END_MAP )) -->
+            </section>
+            <!-- @END_COMPONENT: Course Grid -->
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center space-x-2">
+                <button class="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-medium">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg">1</button>
+                <button class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">2</button>
+                <button class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">3</button>
+                <span class="px-2 text-medium">...</span>
+                <button class="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">10</button>
+                <button class="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-medium">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Course Detail Page -->
+        <div id="course-detail-page" class="page-content hidden">
+            <!-- @COMPONENT: Course Header -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                    <div class="lg:col-span-2 p-8">
+                        <nav class="flex items-center space-x-2 text-sm text-medium mb-6">
+                            <a href="#" class="hover:text-dark transition-colors" data-page="courses">Courses</a>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#" class="hover:text-dark transition-colors">Programming</a>
+                            <i class="fas fa-chevron-right"></i>
+                            <span class="text-dark">Complete Web Development Bootcamp</span>
+                        </nav>
+                        <h1 class="text-3xl font-bold text-dark mb-4" data-bind="course.title">Complete Web Development Bootcamp</h1>
+                        <p class="text-lg text-medium mb-6" data-bind="course.description">
+                            Master full-stack web development with the most comprehensive course available. 
+                            Learn HTML, CSS, JavaScript, React, Node.js, Express, MongoDB and deploy real projects.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-6 mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                <span class="font-semibold text-dark" data-bind="course.rating">4.8</span>
+                                <span class="text-medium ml-1">(<span data-bind="course.reviews">2,341</span> reviews)</span>
+                            </div>
+                            <div class="flex items-center text-medium">
+                                <i class="fas fa-users mr-2"></i>
+                                <span data-bind="course.students">15,432 students</span>
+                            </div>
+                            <div class="flex items-center text-medium">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span data-bind="course.duration">52 hours of video</span>
+                            </div>
+                            <div class="flex items-center text-medium">
+                                <i class="fas fa-globe mr-2"></i>
+                                <span>English</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                            <div>
+                                <p class="font-semibold text-dark" data-bind="course.instructor">Dr. Angela Yu</p>
+                                <p class="text-sm text-medium">Lead Instructor at App Brewery</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-8 flex flex-col">
+                        <div class="relative mb-6">
+                            <!-- Clean modern coding workspace with multiple monitors displaying code -->
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Course Preview" class="w-full h-48 object-cover rounded-lg">
+                            <button class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all" data-event="click:playPreview">
+                                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                    <i class="fas fa-play text-primary text-xl ml-1"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex items-center mb-2">
+                                <span class="text-3xl font-bold text-dark" data-bind="course.price">$89</span>
+                                <span class="text-lg text-medium line-through ml-2" data-bind="course.originalPrice">$199</span>
+                                <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium ml-2">55% off</span>
+                            </div>
+                            <p class="text-sm text-red-600 font-medium">Sale ends in 2 days!</p>
+                        </div>
+                        <button class="w-full bg-primary text-white py-3 rounded-lg font-semibold mb-3 hover:bg-blue-700 transition-colors">
+                            Enroll Now
+                        </button>
+                        <button class="w-full border border-gray-300 text-dark py-3 rounded-lg font-semibold mb-6 hover:bg-gray-50 transition-colors">
+                            Add to Wishlist
+                        </button>
+                        <div class="text-center text-sm text-medium">
+                            <p class="mb-2">30-Day Money-Back Guarantee</p>
+                            <p>Full Lifetime Access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: Course Header -->
+
+            <!-- @COMPONENT: Course Content Tabs -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="border-b border-gray-200">
+                    <nav class="flex space-x-8 px-8">
+                        <button class="py-4 text-primary font-medium border-b-2 border-primary" data-tab="curriculum">Curriculum</button>
+                        <button class="py-4 text-medium hover:text-dark transition-colors" data-tab="instructor">Instructor</button>
+                        <button class="py-4 text-medium hover:text-dark transition-colors" data-tab="reviews">Reviews</button>
+                    </nav>
+                </div>
+                
+                <!-- Curriculum Tab -->
+                <div id="curriculum-tab" class="p-8">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-dark mb-2">Course Curriculum</h3>
+                        <p class="text-medium">7 sections • 64 lectures • 52h 15m total length</p>
+                    </div>
+                    
+                    <!-- @MAP: sections.map(section => ( -->
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors" data-event="click:toggleSection">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-chevron-down text-medium"></i>
+                                    <span class="font-semibold text-dark">Section 1: Introduction to Web Development</span>
+                                </div>
+                                <span class="text-sm text-medium">8 lectures • 2h 15m</span>
+                            </button>
+                            <div class="border-t border-gray-200">
+                                <div class="p-4 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-play-circle text-primary"></i>
+                                        <span class="text-dark">What is Web Development?</span>
+                                    </div>
+                                    <span class="text-sm text-medium">12:34</span>
+                                </div>
+                                <div class="p-4 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-play-circle text-primary"></i>
+                                        <span class="text-dark">Setting Up Your Development Environment</span>
+                                    </div>
+                                    <span class="text-sm text-medium">18:45</span>
+                                </div>
+                                <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-file-alt text-medium"></i>
+                                        <span class="text-dark">Course Resources and Downloads</span>
+                                    </div>
+                                    <span class="text-sm text-medium">Article</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors" data-event="click:toggleSection">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-chevron-right text-medium"></i>
+                                    <span class="font-semibold text-dark">Section 2: HTML Fundamentals</span>
+                                </div>
+                                <span class="text-sm text-medium">12 lectures • 3h 45m</span>
+                            </button>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors" data-event="click:toggleSection">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-chevron-right text-medium"></i>
+                                    <span class="font-semibold text-dark">Section 3: CSS Styling and Layout</span>
+                                </div>
+                                <span class="text-sm text-medium">15 lectures • 4h 30m</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+                
+                <!-- Instructor Tab -->
+                <div id="instructor-tab" class="p-8 hidden">
+                    <div class="flex items-start space-x-6 mb-8">
+                        <div class="w-24 h-24 bg-gray-300 rounded-full flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-dark mb-2">Dr. Angela Yu</h3>
+                            <p class="text-lg text-medium mb-4">Lead Instructor at App Brewery</p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-dark">4.8</div>
+                                    <div class="text-sm text-medium">Instructor Rating</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-dark">45,123</div>
+                                    <div class="text-sm text-medium">Reviews</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-dark">189,456</div>
+                                    <div class="text-sm text-medium">Students</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-dark">12</div>
+                                    <div class="text-sm text-medium">Courses</div>
+                                </div>
+                            </div>
+                            <p class="text-medium leading-relaxed">
+                                Dr. Angela Yu is a developer with a passion for teaching. She is the lead instructor at the London App Brewery, 
+                                London's leading Programming Bootcamp. She's helped hundreds of thousands of students learn to code and change their lives by becoming a developer.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reviews Tab -->
+                <div id="reviews-tab" class="p-8 hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1">
+                            <div class="text-center mb-6">
+                                <div class="text-4xl font-bold text-dark mb-2">4.8</div>
+                                <div class="flex justify-center mb-2">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <div class="text-medium">2,341 reviews</div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm text-medium w-4">5</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                    <span class="text-sm text-medium">75%</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm text-medium w-4">4</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 18%"></div>
+                                    </div>
+                                    <span class="text-sm text-medium">18%</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm text-medium w-4">3</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 5%"></div>
+                                    </div>
+                                    <span class="text-sm text-medium">5%</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm text-medium w-4">2</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 1%"></div>
+                                    </div>
+                                    <span class="text-sm text-medium">1%</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm text-medium w-4">1</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 1%"></div>
+                                    </div>
+                                    <span class="text-sm text-medium">1%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- Review Item -->
+                            <div class="border-b border-gray-200 pb-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <span class="font-semibold text-dark">John Smith</span>
+                                            <div class="flex">
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                            </div>
+                                            <span class="text-sm text-medium">2 weeks ago</span>
+                                        </div>
+                                        <p class="text-medium leading-relaxed">
+                                            Excellent course! Angela's teaching style is very clear and easy to follow. 
+                                            The projects are practical and really help solidify the concepts. Highly recommend for beginners.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- More review items would go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: Course Content Tabs -->
+        </div>
+
+        <!-- Video Player Page -->
+        <div id="video-player-page" class="page-content hidden">
+            <!-- @COMPONENT: Video Learning Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-screen">
+                <!-- Video Player Area -->
+                <div class="lg:col-span-3">
+                    <div class="bg-black rounded-lg overflow-hidden mb-6 relative" style="aspect-ratio: 16/9;">
+                        <!-- Video player with coding tutorial showing HTML and CSS -->
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080" alt="Video Content" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 video-overlay flex items-center justify-center">
+                            <button class="w-20 h-20 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all" data-event="click:playVideo">
+                                <i class="fas fa-play text-primary text-2xl ml-1"></i>
+                            </button>
+                        </div>
+                        <!-- Video Controls -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                            <div class="flex items-center space-x-4 text-white">
+                                <button class="hover:text-gray-300 transition-colors">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="flex-1 bg-gray-600 h-1 rounded-full">
+                                    <div class="bg-primary h-1 rounded-full" style="width: 35%"></div>
+                                </div>
+                                <span class="text-sm">12:34 / 35:42</span>
+                                <button class="hover:text-gray-300 transition-colors">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <button class="hover:text-gray-300 transition-colors">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Info -->
+                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                        <h2 class="text-xl font-semibold text-dark mb-2" data-bind="lesson.title">Introduction to HTML Structure</h2>
+                        <p class="text-medium mb-4" data-bind="lesson.description">
+                            Learn the fundamental structure of HTML documents including DOCTYPE, html, head, and body elements.
+                        </p>
+                        <div class="flex items-center space-x-6">
+                            <button class="flex items-center space-x-2 text-primary hover:text-blue-700 transition-colors">
+                                <i class="fas fa-bookmark"></i>
+                                <span>Bookmark</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-primary hover:text-blue-700 transition-colors">
+                                <i class="fas fa-share"></i>
+                                <span>Share</span>
+                            </button>
+                            <button class="flex items-center space-x-2 text-primary hover:text-blue-700 transition-colors">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Navigation Sidebar -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 h-fit max-h-screen overflow-y-auto">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="font-semibold text-dark mb-2">Course Content</h3>
+                        <div class="flex items-center space-x-4 text-sm text-medium">
+                            <span>64 lectures</span>
+                            <span>52h 15m</span>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-medium">Progress</span>
+                                <span class="text-dark font-medium">8/64 (12%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 12%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lesson List -->
+                    <div class="divide-y divide-gray-200">
+                        <!-- @MAP: lessons.map(lesson => ( -->
+                        <div class="p-4 hover:bg-gray-50 transition-colors cursor-pointer border-l-4 border-primary bg-blue-50" data-lesson-id="1">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-sm font-medium text-dark truncate">Introduction to HTML Structure</h4>
+                                    <div class="flex items-center space-x-3 mt-1">
+                                        <span class="text-xs text-medium">12:34</span>
+                                        <span class="text-xs bg-primary text-white px-2 py-1 rounded">Current</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 hover:bg-gray-50 transition-colors cursor-pointer" data-lesson-id="2">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-play text-gray-500 text-xs"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-sm font-medium text-dark truncate">HTML Head Element</h4>
+                                    <div class="flex items-center space-x-3 mt-1">
+                                        <span class="text-xs text-medium">8:22</span>
+                                        <span class="text-xs text-gray-400">Not started</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 hover:bg-gray-50 transition-colors cursor-pointer" data-lesson-id="3">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-play text-gray-500 text-xs"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-sm font-medium text-dark truncate">Working with Text Elements</h4>
+                                    <div class="flex items-center space-x-3 mt-1">
+                                        <span class="text-xs text-medium">15:45</span>
+                                        <span class="text-xs text-gray-400">Not started</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: Video Learning Interface -->
+        </div>
+
+        <!-- Progress Dashboard Page -->
+        <div id="progress-page" class="page-content hidden">
+            <!-- @COMPONENT: Progress Overview -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-dark mb-2">My Learning Progress</h1>
+                <p class="text-medium">Track your learning journey and achievements</p>
+            </div>
+            
+            <!-- Progress Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-book text-primary text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-dark" data-bind="stats.enrolledCourses">5</span>
+                    </div>
+                    <h3 class="font-semibold text-dark mb-1">Enrolled Courses</h3>
+                    <p class="text-sm text-medium">Currently learning</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-check-circle text-accent text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-dark" data-bind="stats.completedCourses">2</span>
+                    </div>
+                    <h3 class="font-semibold text-dark mb-1">Completed Courses</h3>
+                    <p class="text-sm text-medium">Finished successfully</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-award text-secondary text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-dark" data-bind="stats.certificates">2</span>
+                    </div>
+                    <h3 class="font-semibold text-dark mb-1">Certificates</h3>
+                    <p class="text-sm text-medium">Earned credentials</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-dark" data-bind="stats.hoursLearned">147</span>
+                    </div>
+                    <h3 class="font-semibold text-dark mb-1">Hours Learned</h3>
+                    <p class="text-sm text-medium">Total study time</p>
+                </div>
+            </div>
+            
+            <!-- Current Courses -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-dark">Continue Learning</h2>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <!-- @MAP: currentCourses.map(course => ( -->
+                    <div class="p-6 hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center space-x-6">
+                            <!-- Web development course thumbnail showing code editor with colorful syntax highlighting -->
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&h=120" alt="Course Thumbnail" class="w-20 h-12 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-dark mb-1" data-bind="course.title">Complete Web Development Bootcamp</h3>
+                                <p class="text-sm text-medium mb-3" data-bind="course.instructor">Dr. Angela Yu</p>
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-1 max-w-xs">
+                                        <div class="flex items-center justify-between text-sm mb-1">
+                                            <span class="text-medium">Progress</span>
+                                            <span class="text-dark font-medium" data-bind="course.progress">35%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 35%"></div>
+                                        </div>
+                                    </div>
+                                    <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors" data-event="click:continueCourse">
+                                        Continue
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center space-x-6">
+                            <!-- UI/UX design workspace with design tools and color palettes -->
+                            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&h=120" alt="Course Thumbnail" class="w-20 h-12 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-dark mb-1" data-bind="course.title">UI/UX Design Masterclass</h3>
+                                <p class="text-sm text-medium mb-3" data-bind="course.instructor">Sarah Johnson</p>
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-1 max-w-xs">
+                                        <div class="flex items-center justify-between text-sm mb-1">
+                                            <span class="text-medium">Progress</span>
+                                            <span class="text-dark font-medium" data-bind="course.progress">68%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 68%"></div>
+                                        </div>
+                                    </div>
+                                    <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors" data-event="click:continueCourse">
+                                        Continue
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+            
+            <!-- Achievements & Certificates -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Recent Achievements -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-dark">Recent Achievements</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-trophy text-yellow-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark">Course Completed</h3>
+                                <p class="text-sm text-medium">Finished "Digital Marketing Complete Course"</p>
+                                <p class="text-xs text-medium">2 days ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-star text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark">Learning Streak</h3>
+                                <p class="text-sm text-medium">7 days of continuous learning</p>
+                                <p class="text-xs text-medium">1 week ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-graduation-cap text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-dark">First Certificate</h3>
+                                <p class="text-sm text-medium">Earned your first course certificate</p>
+                                <p class="text-xs text-medium">2 weeks ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Learning Analytics -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-dark">This Month</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-medium">Hours Studied</span>
+                                    <span class="font-semibold text-dark">24 hours</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                                <p class="text-xs text-medium mt-1">Goal: 30 hours</p>
+                            </div>
+                            
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-medium">Lessons Completed</span>
+                                    <span class="font-semibold text-dark">18 lessons</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-accent h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                                <p class="text-xs text-medium mt-1">Goal: 30 lessons</p>
+                            </div>
+                            
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-medium">Quiz Score Average</span>
+                                    <span class="font-semibold text-dark">87%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-secondary h-2 rounded-full" style="width: 87%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: Progress Overview -->
+        </div>
+    </main>
+    <!-- @END_COMPONENT: Main Content Area -->
+
+    <!-- @STATE: currentPage:string = 'courses' -->
+    <!-- @STATE: selectedCourse:object = null -->
+    <!-- @STATE: currentLesson:object = null -->
+
+    <script>
+        // TODO: Implement React Router for navigation
+        // TODO: Connect to learning management API
+        // TODO: Implement video player controls and progress tracking
+        
+        (function() {
+            // Page navigation simulation
+            const pages = {
+                'courses': document.getElementById('courses-page'),
+                'course-detail': document.getElementById('course-detail-page'),
+                'video-player': document.getElementById('video-player-page'),
+                'progress': document.getElementById('progress-page')
+            };
+            
+            let currentPage = 'courses';
+            
+            function showPage(pageId) {
+                // Hide all pages
+                Object.values(pages).forEach(page => {
+                    if (page) page.classList.add('hidden');
+                });
+                
+                // Show selected page
+                if (pages[pageId]) {
+                    pages[pageId].classList.remove('hidden');
+                    currentPage = pageId;
+                }
+                
+                // Update navigation active state
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                    link.classList.add('text-medium');
+                });
+                
+                const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+                if (activeLink) {
+                    activeLink.classList.remove('text-medium');
+                    activeLink.classList.add('text-primary', 'border-b-2', 'border-primary');
+                }
+            }
+            
+            // Navigation event listeners
+            document.addEventListener('click', function(e) {
+                const pageLink = e.target.closest('[data-page]');
+                if (pageLink) {
+                    e.preventDefault();
+                    const pageId = pageLink.dataset.page;
+                    showPage(pageId);
+                }
+                
+                // Course card click to go to detail page
+                const courseCard = e.target.closest('.course-card');
+                if (courseCard) {
+                    showPage('course-detail');
+                }
+                
+                // Tab switching in course detail
+                const tabButton = e.target.closest('[data-tab]');
+                if (tabButton && currentPage === 'course-detail') {
+                    const tabId = tabButton.dataset.tab;
+                    
+                    // Update tab buttons
+                    document.querySelectorAll('[data-tab]').forEach(btn => {
+                        btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                        btn.classList.add('text-medium');
+                    });
+                    tabButton.classList.remove('text-medium');
+                    tabButton.classList.add('text-primary', 'border-b-2', 'border-primary');
+                    
+                    // Show/hide tab content
+                    document.querySelectorAll('[id$="-tab"]').forEach(tab => {
+                        tab.classList.add('hidden');
+                    });
+                    const targetTab = document.getElementById(`${tabId}-tab`);
+                    if (targetTab) {
+                        targetTab.classList.remove('hidden');
+                    }
+                }
+                
+                // Video player navigation
+                if (e.target.closest('[data-event*="playVideo"]') || e.target.closest('[data-event*="playPreview"]')) {
+                    showPage('video-player');
+                }
+                
+                // Continue course button
+                if (e.target.closest('[data-event*="continueCourse"]')) {
+                    showPage('video-player');
+                }
+            });
+            
+            // Course section toggle simulation
+            document.addEventListener('click', function(e) {
+                const sectionButton = e.target.closest('[data-event*="toggleSection"]');
+                if (sectionButton) {
+                    const chevron = sectionButton.querySelector('i');
+                    const isExpanded = chevron.classList.contains('fa-chevron-down');
+                    
+                    if (isExpanded) {
+                        chevron.classList.remove('fa-chevron-down');
+                        chevron.classList.add('fa-chevron-right');
+                    } else {
+                        chevron.classList.remove('fa-chevron-right');
+                        chevron.classList.add('fa-chevron-down');
+                    }
+                }
+            });
+            
+            // Initialize with courses page
+            showPage('courses');
+        })();
+    </script>
+</body>
+</html>
